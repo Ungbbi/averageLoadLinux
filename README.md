@@ -128,26 +128,16 @@ watch -d uptime
 mpstat -P ALL 5
 ```
 
-```bash
-02:13:02 PM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
-02:13:07 PM  all   49.95    0.00    0.00    0.00    0.00    0.10    0.00    0.00    0.00   49.95
-02:13:07 PM    0    0.00    0.00    0.00    0.00    0.00    0.20    0.00    0.00    0.00   99.80
-02:13:07 PM    1  **100.00**    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
-```
+![image](https://github.com/user-attachments/assets/c26fcbbe-e9fe-4a87-aeef-a5b9bd72e550)
+
 
 - 특정 프로세스가 CPU를 100% 사용하고 있음을 보여준다.
 
 - `pidstat`명령어를 사용하여 CPU 사용률이 100%인 프로세스가 무엇인지 확인할 수 있다.
     - `stress` 프로세스가 CPU 사용률 100%를 차지하고 있음
 
-```bash
-username@servername:~$ pidstat -u 5 1
-Linux 5.15.0-122-generic (servername)   09/23/2024      _x86_64_        (2 CPU)
+![image](https://github.com/user-attachments/assets/f7d6b023-acd9-4fda-bd5b-c473eb3ff07b)
 
-02:14:39 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
-02:14:44 PM     0       229    0.00    0.20    0.00    0.00    0.20     1  irq/18-vmwgfx
-02:14:44 PM  1000      6394  100.00    0.00    0.00    0.00  100.00     1  stress
-```
 </br></br>
 
 ___
