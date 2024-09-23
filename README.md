@@ -1,4 +1,8 @@
 # Average Load In Linux
+|                                         박정주                                         |                                      박웅빈                                      |
+| :-------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: |
+| <img  width="100px" src="https://avatars.githubusercontent.com/gorapang" /> | <img width="100px" src="https://avatars.githubusercontent.com/Ungbbi" /> |
+|                       [@gorapang](https://github.com/gorapang)                        |           [@Ungbbi](https://github.com/Ungbbi)           |
 ___
 # 01. What is Avearage Load ?
 시스템이 느려졌다고 느낄 때, 가장 먼저 하는일은 보통 `top`이나 `uptime` 명령어를 실행해 시스템의 부하(load)를 확인해 볼 것이다.
@@ -141,7 +145,7 @@ Linux 5.15.0-122-generic (servername)   09/23/2024      _x86_64_        (2 CPU)
 
 ## **Scenario 2: I/O-intensive process**
 
-터미널 1️⃣
+터미널 :one:
 
 - I/O 부하를 시뮬레이션하기 위해, `stress` 명령어로 I/O 작업을 계속 실행한다.
 
