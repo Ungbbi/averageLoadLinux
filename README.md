@@ -68,9 +68,126 @@ ___
 
 ___
 # 03. Case Study
-### 00. Environment
-### 01. Stress
-우선 시스템에 부하를 주기 위해  ```stress --cpu 1 --timeout 600``` 명령어를 줘보자.
-`stress` 명령어는 `sudo apt install stress`로 패키지를 설치해야 한다.
+세 가지 예시를 통해 위의 세 가지 상황을 이해하고, `iostat`, `mpstat`, `pidstat` 등의 도구를 사용하여 평균 부하 증가의 원인을 파악해보자.
 
-### 
+- `stress` :
+    - 리눅스 시스템 부하 테스트 도구
+    - 비정상적인 프로세스로 인해 평균 부하가 증가하는 시나리오를 시뮬레이션하는 데 사용
+    
+- `sysstat`:
+    - 시스템 성능을 모니터링하고 분석하는 데 사용되는 리눅스 성능 도구들을 포함한다.
+    - `mpstat`: 멀티 코어 CPU 성능을 분석하는 데 사용하는 도구로, 각 CPU 및 모든 CPU에 대한 실시간 성능 메트릭을 확인할 수 있다.
+    - `pidstat`: 프로세스 성능을 분석하는 데 사용하는 도구로, 프로세스별 CPU, 메모리, I/O, 컨텍스트 스위치의 실시간 성능 메트릭을 확인할 수 있다.
+
+- 실험환경
+    - Ubuntu 22.04
+    - Machine configuration: 2 CPUs, 8GB RAM
+- 설치
+
+```bash
+sudo apt install stress 
+sudo apt install sysstat
+```
+
+실험을 위해 3개의 터미널을 열어 동일한 유저로 로그인한다.
+
+## **Scenario 1: CPU-intensive process**
+
+터미널 1️⃣
+
+- `stress`명령어를 통해 10분간 CPU를 100%로 사용하는 프로세스를 실행
+
+```bash
+
+stress --cpu 1 --timeout 600
+```
+
+터미널 2️⃣
+
+- `uptime` 명령어로 시스템 부하를 확인하면, CPU 부하가 점차 1.00으로 증가하는 것을 볼 수 있다.
+
+```bash
+watch -d uptime
+```
+
+터미널 3️⃣
+
+- `mpstat` 명령어로 CPU 사용률을 실시간으로 모니터링
+
+```bash
+mpstat -P ALL 5
+```
+
+```bash
+02:13:02 PM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
+02:13:07 PM  all   49.95    0.00    0.00    0.00    0.00    0.10    0.00    0.00    0.00   49.95
+02:13:07 PM    0    0.00    0.00    0.00    0.00    0.00    0.20    0.00    0.00    0.00   99.80
+02:13:07 PM    1  **100.00**    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+```
+
+- 특정 프로세스가 CPU를 100% 사용하고 있음을 보여준다.
+
+- `pidstat`명령어를 사용하여 CPU 사용률이 100%인 프로세스가 무엇인지 확인할 수 있다.
+    - `stress` 프로세스가 CPU 사용률 100%를 차지하고 있음
+
+```bash
+username@servername:~$ pidstat -u 5 1
+Linux 5.15.0-122-generic (servername)   09/23/2024      _x86_64_        (2 CPU)
+
+02:14:39 PM   UID       PID    %usr %system  %guest   %wait    %CPU   CPU  Command
+02:14:44 PM     0       229    0.00    0.20    0.00    0.00    0.20     1  irq/18-vmwgfx
+02:14:44 PM  1000      6394  100.00    0.00    0.00    0.00  100.00     1  stress
+```
+
+## **Scenario 2: I/O-intensive process**
+
+터미널 1️⃣
+
+- I/O 부하를 시뮬레이션하기 위해, `stress` 명령어로 I/O 작업을 계속 실행한다.
+
+```bash
+stress -i 1 --timeout 600
+```
+
+터미널 2️⃣
+
+- `uptime`을 실행하면 부하가 증가하는 것을 볼 수 있다.
+
+```bash
+watch -d uptime
+```
+
+터미널 3️⃣
+
+- `mpstat`를 실행하면 I/O 대기 시간(iowait)이 크게 증가한 것을 확인할 수 있다.
+
+```bash
+mpstat -P ALL 5
+```
+
+![image](https://github.com/user-attachments/assets/c8514b97-7016-4436-8a23-81f8a476dab6)
+
+
+## **Scenario 3: 많은 수의 프로세스**
+
+시스템의 CPU 수보다 많은 프로세스를 실행하면 과부하가 발생한다. 
+
+- `stress`로 8개의 CPU 집약적인 프로세스를 실행한다.
+
+```bash
+stress -c 8 --timeout 600
+```
+
+- CPU가 2개인 시스템에서는 평균 부하가 7.97까지 상승한다.
+
+2개의 CPU만 존재하는 시스템에서, 8개의 CPU-intensive 프로세스가 실행된다. 동시에 실행 중인 8개의 프로세스가 CPU를 할당받기를 기다리게 된다. 즉, CPU가 동시에 처리할 수 있는 작업 수보다 많은 작업이 쌓여서 과부하가 발생한다.
+
+---
+
+# Summary
+
+**평균 부하**는 시스템의 전체 성능을 평가하기 위한 방법으로, 시스템의 전반적인 부하 상황을 나타낸다. 그러나 평균 부하만을 보고서는 어디에서 병목 현상이 발생하는지 직접적으로 알 수 없다. 따라서  평균 부하를 이해할 때 다음 사항들을 고려해야 한다:
+
+1. 높은 평균 부하는 CPU-intensive 프로세스에 의해 발생할 가능성이 크다.
+2. 평균 부하가 높다고 반드시 CPU 사용률이 높은 것은 아니며, I/O 증가로 인해 평균 부하가 증가할 수도 있다.
+3. 높은 부하를 발견했을 때, `mpstat`, `pidstat`와 같은 도구를 사용하여 부하의 원인을 분석해야 한다.
