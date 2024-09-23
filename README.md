@@ -6,8 +6,16 @@
 | <img  width="150px" src="https://avatars.githubusercontent.com/gorapang" /> | <img width="150px" src="https://avatars.githubusercontent.com/Ungbbi" /> |
 |                       [@gorapang](https://github.com/gorapang)                        |           [@Ungbbi](https://github.com/Ungbbi)           |
 
+# 🤓 프로젝트 목표
+서버 환경에서 CPU 및 I/O 부하를 발생시키는 방법 학습과 평균 부하를 모니터링하며, 프로세스별 CPU 사용량 및 I/O 사용량을 분석하는 능력을 키우는 것을 목표로 한다.</br></br>
+
+- 효율적인 부하 테스트: CPU 및 I/O에 부하를 가하여 **시스템의 한계를 파악** 가능하다.</br></br>
+- 실시간 모니터링: 평균 부하와 프로세스별 자원 사용량을 확인하여 **시스템 성능을 최적화**한다.</br></br>
+- 서버 안정성 향상: 시스템의 병목 현상을 발견하고 이를 해결함으로써 **서버의 안정성**을 높일 수 있다.
+</br></br>
+
 ___
-# 01. 🔍What is Avearage Load ? 
+# 🔍 01. Introduction
 시스템이 느려졌다고 느낄 때, 가장 먼저 하는일은 보통 `top`이나 `uptime` 명령어를 실행해 시스템의 부하(load)를 확인하는 것이다.
 
 ```bash
@@ -22,7 +30,7 @@ $ uptime
 </br></br>
 
 ___
-# 02. 📌load average(평균부하)
+# 📌 02. Load Average(평균부하)
 - **실행 가능한 상태**(Runnable), **중단 불가능한 상태**(Uninterruptible)에 있는 **프로세스들의 평균 수** 이다.
 - **Active process**들의 평균 수 이다. 
 - 단위 시간당 CPU 사용률이 **아니다**.
