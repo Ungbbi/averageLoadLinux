@@ -1,11 +1,13 @@
 # Average Load In Linux
+
+# 🏃🏃‍♂️Team
 |                                         박정주                                         |                                      박웅빈                                      |
 | :-------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: |
-| <img  width="100px" src="https://avatars.githubusercontent.com/gorapang" /> | <img width="100px" src="https://avatars.githubusercontent.com/Ungbbi" /> |
+| <img  width="150px" src="https://avatars.githubusercontent.com/gorapang" /> | <img width="150px" src="https://avatars.githubusercontent.com/Ungbbi" /> |
 |                       [@gorapang](https://github.com/gorapang)                        |           [@Ungbbi](https://github.com/Ungbbi)           |
 
 ___
-# 01. What is Avearage Load ?
+# 01. 🔍What is Avearage Load ? 
 시스템이 느려졌다고 느낄 때, 가장 먼저 하는일은 보통 `top`이나 `uptime` 명령어를 실행해 시스템의 부하(load)를 확인하는 것이다.
 
 ```bash
@@ -20,7 +22,7 @@ $ uptime
 </br></br>
 
 ___
-# 02. load average(평균부하)
+# 02. 📌load average(평균부하)
 - **실행 가능한 상태**(Runnable), **중단 불가능한 상태**(Uninterruptible)에 있는 **프로세스들의 평균 수** 이다.
 - **Active process**들의 평균 수 이다. 
 - 단위 시간당 CPU 사용률이 **아니다**.
@@ -103,7 +105,7 @@ sudo apt install sysstat
 ___
 ## **Scenario 1: CPU-intensive process**
 
-터미널 1️⃣
+**터미널 #1**
 
 - `stress`명령어를 통해 10분간 CPU를 100%로 사용하는 프로세스를 실행
 
@@ -112,7 +114,7 @@ ___
 stress --cpu 1 --timeout 600
 ```
 </br></br>
-터미널 2️⃣
+**터미널 #2**
 
 - `uptime` 명령어로 시스템 부하를 확인하면, CPU 부하가 점차 1.00으로 증가하는 것을 볼 수 있다.
 
@@ -120,7 +122,7 @@ stress --cpu 1 --timeout 600
 watch -d uptime
 ```
 </br></br>
-터미널 3️⃣
+**터미널 #3**
 
 - `mpstat` 명령어로 CPU 사용률을 실시간으로 모니터링
 
@@ -143,7 +145,7 @@ mpstat -P ALL 5
 ___
 ## **Scenario 2: I/O-intensive process**
 
-터미널 :one:
+**터미널 #1**
 
 - I/O 부하를 시뮬레이션하기 위해, `stress` 명령어로 I/O 작업을 계속 실행한다.
 
@@ -151,7 +153,7 @@ ___
 stress -i 1 --timeout 600
 ```
 </br></br>
-터미널 2️⃣
+**터미널 #2**
 
 - `uptime`을 실행하면 부하가 증가하는 것을 볼 수 있다.
 
@@ -159,7 +161,7 @@ stress -i 1 --timeout 600
 watch -d uptime
 ```
 </br></br>
-터미널 3️⃣
+**터미널 #3**
 
 - `mpstat`를 실행하면 I/O 대기 시간(iowait)이 크게 증가한 것을 확인할 수 있다.
 
@@ -190,7 +192,7 @@ stress -c 8 --timeout 600
 </br></br>
 
 ___
-# Summary
+# 📜Summary
 
 **평균 부하**는 시스템의 전체 성능을 평가하기 위한 방법으로, 시스템의 전반적인 부하 상황을 나타낸다.</br>
 그러나 평균 부하만을 보고서는 어디에서 병목 현상이 발생하는지 직접적으로 알 수 없으므로  평균 부하를 이해할 때 다음 사항들을 고려해야 한다.</br>
