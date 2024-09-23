@@ -6,8 +6,10 @@
 | <img  width="150px" src="https://avatars.githubusercontent.com/gorapang" /> | <img width="150px" src="https://avatars.githubusercontent.com/Ungbbi" /> |
 |                       [@gorapang](https://github.com/gorapang)                        |           [@Ungbbi](https://github.com/Ungbbi)           |
 
+</br></br>
+
 # 🤓 프로젝트 목표
-서버 환경에서 CPU 및 I/O 부하를 발생시키는 방법 학습과 평균 부하를 모니터링하며, 프로세스별 CPU 사용량 및 I/O 사용량을 분석하는 능력을 통해 추후 시스템 개선을 할 수 있도록 목표로 한다.</br></br>
+서버 환경에서 CPU 및 I/O 부하를 발생시키는 방법 학습과 평균 부하를 모니터링하며, 프로세스별 CPU 사용량 및 I/O 사용량을 분석하는 능력을 통해 추후 서버 성능 최적화를 할 수 있는 것을 목표로 한다.</br></br>
 
 - 효율적인 부하 테스트: CPU 및 I/O에 부하를 가하여 **시스템의 한계를 파악** 가능하다.</br></br>
 - 실시간 모니터링: 평균 부하와 프로세스별 자원 사용량을 확인하여 **시스템 성능을 최적화**한다.</br></br>
